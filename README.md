@@ -56,27 +56,10 @@ than eyeballed.
 ## Installation
 
 ### From the community directory
-
-Once the theme is published:
-
+Obsidian 
 1. **Settings → Appearance → Themes → Manage**
 2. Search for **Retro Relay**
 3. **Install and use**
-
-### With the install script
-
-From a clone of this repository:
-
-```bash
-bash scripts/install-local.sh          # finds your vaults, asks which
-bash scripts/install-local.sh --list   # just show what it found
-bash scripts/install-local.sh --all    # install into every vault found
-bash scripts/install-local.sh --vault "/path/to/vault"
-```
-
-It looks for vaults in the iCloud Obsidian container, `~/Documents`,
-`~/Obsidian` and `~/Library/CloudStorage`, and copies the two files into
-`<vault>/.obsidian/themes/Retro Relay/`. Restart Obsidian afterwards.
 
 ### Manually
 
