@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Obsidian help
+    url: https://help.obsidian.md
+    about: Questions about Obsidian itself rather than this theme.
+  - name: Obsidian forum — Share & showcase
+    url: https://forum.obsidian.md/c/share-showcase/9
+    about: General discussion about themes and appearance.

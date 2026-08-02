@@ -1,0 +1,17 @@
+# Release payload — rebuilt by scripts/build-release.mjs, attached to releases
+dist/
+
+# Local tooling
+node_modules/
+package-lock.json
+
+# Obsidian per-vault state that should not be shared
+test-vault/.obsidian/workspace.json
+test-vault/.obsidian/workspace-mobile.json
+test-vault/.trash/
+test-vault/.obsidian/plugins/
+
+# OS noise
+.DS_Store
+Thumbs.db
+desktop.ini

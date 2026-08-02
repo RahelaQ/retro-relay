@@ -1,0 +1,18 @@
+{
+  "name": "retro-relay-obsidian-theme",
+  "version": "1.0.0",
+  "description": "A warm analog theme for Obsidian with measured WCAG AA contrast in light and dark.",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "check": "node scripts/check-contrast.mjs",
+    "build": "node scripts/build-release.mjs",
+    "sync": "node scripts/build-release.mjs --sync-vault",
+    "shoot": "node scripts/shoot.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.56.0"
+  },
+  "comment": "playwright is only needed for `npm run shoot`. The contrast check and release build are dependency-free, which is why CI installs nothing."
+}

@@ -1,0 +1,40 @@
+name: Feature request
+description: Suggest a styling change or a new option
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What would you like
+      description: Describe the change and which part of the interface it affects.
+    validations:
+      required: true
+
+  - type: textarea
+    id: why
+    attributes:
+      label: Why
+      description: >
+        What is awkward today? Concrete situations help more than general
+        preferences.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Should this be the default, or an option?
+      options:
+        - Change the default for everyone
+        - Add it as a Style Settings option
+        - Not sure
+    validations:
+      required: true
+
+  - type: textarea
+    id: reference
+    attributes:
+      label: Reference
+      description: A mockup, screenshot or link to another theme doing it well.
+    validations:
+      required: false

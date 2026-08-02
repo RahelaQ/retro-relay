@@ -1,0 +1,75 @@
+name: Bug report
+description: Something in the theme renders wrongly or is hard to read
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the report. A screenshot is worth far more than a
+        description here — please attach one if you can.
+
+  - type: textarea
+    id: what
+    attributes:
+      label: What looks wrong
+      description: What did you expect, and what did you see instead?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: scheme
+    attributes:
+      label: Colour scheme
+      description: Does it happen in one scheme or both?
+      options:
+        - Dark only
+        - Light only
+        - Both
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: Screenshot
+      description: Drag an image in. Include the whole window if layout is involved.
+    validations:
+      required: false
+
+  - type: input
+    id: obsidian-version
+    attributes:
+      label: Obsidian version
+      description: Settings → About → Current version
+      placeholder: "1.5.3"
+    validations:
+      required: true
+
+  - type: input
+    id: platform
+    attributes:
+      label: Platform
+      placeholder: "macOS 14 / Windows 11 / iOS 17 / Android 14"
+    validations:
+      required: true
+
+  - type: input
+    id: theme-version
+    attributes:
+      label: Theme version
+      description: From manifest.json, or the version shown in the theme browser
+      placeholder: "1.0.0"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: isolation
+    attributes:
+      label: Ruling out other causes
+      options:
+        - label: I have checked with other community plugins disabled
+          required: false
+        - label: I have checked with a default (unmodified) Style Settings configuration
+          required: false
+        - label: I am using custom CSS snippets alongside the theme
+          required: false
