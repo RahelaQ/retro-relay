@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Retro Relay — 512×288 thumbnail</title>
 <link rel="stylesheet" href="../theme.css">
 <style>
@@ -99,6 +100,9 @@
   }
   .markdown-rendered table { font-size: 7.5px; }
 
+  .titlebar-label { margin-left: 4px; }
+  .markdown-rendered table.audit { margin-top: 7px; width: 100%; }
+
   .status-bar {
     flex: 0 0 14px; display: flex; align-items: center; justify-content: flex-end;
     gap: 10px; padding: 0 8px;
@@ -113,7 +117,7 @@
 <div class="app">
   <div class="titlebar">
     <span class="dots"><i></i><i></i><i></i></span>
-    <span style="margin-left:4px">Retro Relay</span>
+    <span class="titlebar-label">Retro Relay</span>
   </div>
   <div class="workspace">
     <div class="sidebar">
@@ -154,7 +158,7 @@
 <span class="token property">--rr-accent</span><span class="token punctuation">:</span> <span class="token string">#F0A055</span><span class="token punctuation">;</span>
 <span class="token property">--rr-ink</span><span class="token punctuation">:</span> <span class="token string">#F2E9D8</span><span class="token punctuation">;</span></code></pre>
 
-          <table style="margin-top:7px; width:100%">
+          <table class="audit">
             <thead><tr><th>Pair</th><th>Ratio</th><th>Min</th></tr></thead>
             <tbody>
               <tr><td>Body text</td><td>14.34:1</td><td>4.5</td></tr>
