@@ -7,6 +7,9 @@ than eyeballed.
 
 ![Retro Relay in dark mode](screenshots/preview-dark.png)
 
+<img width="512" height="288" alt="screenshotlight" src="https://github.com/user-attachments/assets/b434af5b-23b7-4609-b41f-f323330bbeed" />
+
+
 ## Features
 
 - **Both colour schemes, equally finished.** Light mode is a full paper-and-ink
