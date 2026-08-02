@@ -5,10 +5,7 @@ dark, ink-on-paper in the light, with an amber accent running through both.
 Every colour pair it ships with has been measured against WCAG 2.1 AA rather
 than eyeballed.
 
-![Retro Relay in dark mode](screenshots/preview-dark.png)
-
-<img width="512" height="288" alt="screenshotlight" src="https://github.com/user-attachments/assets/b434af5b-23b7-4609-b41f-f323330bbeed" />
-
+![Retro Relay in dark mode](screenshots/screenshot.png)
 
 ## Features
 
@@ -45,18 +42,14 @@ than eyeballed.
 
 | Dark | Light |
 |---|---|
-| ![dark](screenshots/preview-dark.png) | ![light](screenshots/preview-light.png) |
-
-> [!note]
-> These previews are rendered from the real `theme.css` by
-> `scripts/shoot.mjs`, which reproduces Obsidian's layout in a headless
-> browser. The colours, borders, type and spacing are the theme's own; the
-> chrome is a faithful mock rather than a capture of a running app.
+| ![dark](screenshots/screenshot.png) | ![light](screenshots/screenshotlight.png) |
 
 ## Installation
 
 ### From the community directory
-Obsidian 
+
+Once the theme has been published to the directory:
+
 1. **Settings → Appearance → Themes → Manage**
 2. Search for **Retro Relay**
 3. **Install and use**
@@ -74,25 +67,33 @@ Obsidian
 The folder name has to match the `name` in `manifest.json` exactly, or Obsidian
 will not list the theme.
 
-### For development
+### With the install script
+
+From a clone of this repository:
 
 ```bash
-git clone https://github.com/RahelaQ/retro-relay-obsidian-theme.git
-cd retro-relay-obsidian-theme
+bash scripts/install-local.sh          # finds your vaults, asks which
+bash scripts/install-local.sh --all    # install into every vault found
+bash scripts/install-local.sh --vault "/path/to/vault"
+```
+
+## Development
+
+```bash
+git clone https://github.com/RahelaQ/retro-relay.git
+cd retro-relay
 
 # Verify the palette still passes contrast after any edit
 node scripts/check-contrast.mjs
-
-# Re-render the previews (needs playwright + chromium)
-node scripts/shoot.mjs
 
 # Build the clean release payload into dist/
 node scripts/build-release.mjs
 ```
 
 `test-vault/` is a ready-made vault that exercises every element the theme
-styles — open it in Obsidian and the theme is already selected. To point it at
-your working copy, run `node scripts/build-release.mjs --sync-vault`.
+styles — open it in Obsidian and the theme is already selected. After editing
+`theme.css`, run `node scripts/build-release.mjs --sync-vault` to refresh the
+copy inside it.
 
 ## Customization
 
@@ -155,11 +156,11 @@ Issues and pull requests are welcome. Before opening a PR:
 
 - Built for [Obsidian](https://obsidian.md), following the official
   [theme guidelines](https://docs.obsidian.md/Themes/App+themes/Build+a+theme).
-- Callout icon paths in the preview mocks are from
-  [Lucide](https://lucide.dev) (ISC licence), the icon set Obsidian itself uses.
 - Optional settings integration via
   [Style Settings](https://github.com/mgmeyers/obsidian-style-settings) by
   mgmeyers.
+- Icon paths in the development preview pages under `scripts/` are from
+  [Lucide](https://lucide.dev) (ISC licence), the icon set Obsidian itself uses.
 - Font stacks reference Iosevka, JetBrains Mono, IBM Plex Mono, Iowan Old Style
   and Charter where installed, falling back to system fonts. None are bundled
   or downloaded.
