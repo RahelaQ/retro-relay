@@ -48,7 +48,7 @@ rather than eyeballed.
 
 | Dark | Light |
 |---|---|
-| ![dark](screenshots/screenshot.png) | ![light](screenshots/screenshotlight.png) |
+| ![dark](screenshots/screenshot.png) | ![light](screenshots/screenshot-light.png) |
 
 ## Installation
 
