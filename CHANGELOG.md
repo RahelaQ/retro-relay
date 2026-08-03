@@ -4,7 +4,7 @@ All notable changes to Retro Relay are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow
 [Semantic Versioning](https://semver.org/).
 
-## [Unreleased]
+## [1.1.0] — 2026-08-03
 
 ### Changed
 
@@ -62,4 +62,5 @@ First release.
 - Release tooling (`scripts/build-release.mjs`) that validates the manifest
   against Obsidian's theme schema and emits only the two shipped files.
 
-[1.0.0]: https://github.com/RahelaQ/retro-relay-obsidian-theme/releases/tag/1.0.0
+[1.1.0]: https://github.com/RahelaQ/retro-relay/releases/tag/1.1.0
+[1.0.0]: https://github.com/RahelaQ/retro-relay/releases/tag/1.0.0
