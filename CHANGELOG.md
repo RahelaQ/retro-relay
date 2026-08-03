@@ -4,6 +4,35 @@ All notable changes to Retro Relay are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Changed
+
+- Dark palette recoloured from a warm brown-black ground to graphite with a
+  slight cool cast, still paired with cream ink and the amber accent — the
+  cool ground against warm ink is what keeps it recognisably the same theme
+  as the light scheme.
+
+### Added
+
+- Spectrum bar: a broadcast-style chromatic band along the window's top edge,
+  built from palette tokens so it re-tints with the colour scheme. Smooth by
+  default, with a hard-edged "VHS" variant and an adjustable height.
+- Atmospheric cloud wash across dark-mode panes, with a stronger optional
+  variant. Kept within the contrast script's targets at both strengths.
+- Graph view orbital plate — a faint star glow, coloured orbits and a reticle
+  behind the force-directed layout, each independently adjustable.
+- Seven new Style Settings covering the above (spectrum bar visibility, style
+  and height; cloud wash strength; orbital plate visibility and opacity).
+
+### Fixed
+
+- Cleared four warnings from Obsidian's theme linter: a partially-supported
+  `text-decoration` shorthand, two `:has()` selectors doing work that could be
+  done without one (one of which was silently inverted from its intent), and
+  a `break-inside` property swapped for its better-supported `page-break-inside`
+  alias.
+
 ## [1.0.0] — 2026-08-02
 
 First release.

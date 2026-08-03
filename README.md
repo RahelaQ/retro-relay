@@ -1,9 +1,9 @@
 # Retro Relay
 
-A warm analog theme for [Obsidian](https://obsidian.md) — cream-on-cocoa in the
-dark, ink-on-paper in the light, with an amber accent running through both.
-Every colour pair it ships with has been measured against WCAG 2.1 AA rather
-than eyeballed.
+A warm analog theme for [Obsidian](https://obsidian.md) — graphite-and-cream in
+the dark, ink-on-paper in the light, with an amber accent running through
+both. Every colour pair it ships with has been measured against WCAG 2.1 AA
+rather than eyeballed.
 
 ![Retro Relay in dark mode](screenshots/screenshot.png)
 
@@ -22,6 +22,12 @@ than eyeballed.
 - **Graph view styled in both schemes.** Notes, tags, attachments and unresolved
   nodes are separated, links sit back, and the canvas uses the theme ground
   instead of black.
+- **An orbital plate behind the graph.** A faint star glow, coloured orbits
+  and a reticle give the force-directed layout a chart to drift across —
+  faint by default, and adjustable, since the graph itself stays the subject.
+- **A chromatic spectrum band and drifting atmosphere.** A broadcast-style
+  colour bar along the window's top edge (smooth by default, or a hard-edged
+  VHS variant) and a faint cloud wash across dark-mode panes, both optional.
 - **All thirteen callout families.** Every Obsidian callout keyword resolves to
   an intentional colour, aliases included.
 - **Polished code.** Full syntax token palette, bordered inline-code chips, a
@@ -33,8 +39,8 @@ than eyeballed.
   element, via `:focus-visible`.
 - **Respects system preferences.** `prefers-reduced-motion` and
   `prefers-contrast: more` are both honoured with no configuration.
-- **Ten user settings** via the optional Style Settings plugin — and sensible
-  defaults without it.
+- **Seventeen user settings** via the optional Style Settings plugin — and
+  sensible defaults without it.
 - **No network, no build step.** One `theme.css`, local font stacks only.
   Nothing is fetched at runtime.
 
@@ -109,7 +115,7 @@ else:
   --rr-accent: #F0A055;   /* links, H1, warnings, focus ring */
   --rr-teal:   #62C3B2;   /* tags, external links */
   --rr-ink:    #F2E9D8;   /* body text */
-  --rr-bg-1:   #1E1A16;   /* editor background */
+  --rr-bg-1:   #191C20;   /* editor background */
 }
 ```
 
@@ -134,6 +140,13 @@ community plugin and the theme exposes these under **Settings → Style Settings
 | Accent colour | per scheme | Separate light and dark values |
 | Plain table rows | off | Turns zebra striping off |
 | Scanline texture on headings | off | Cosmetic CRT nod |
+| Hide the spectrum bar | off | Removes the chromatic band along the window's top edge |
+| Hard-edged spectrum bar | off | Discrete broadcast colour bars instead of a smooth blend |
+| Spectrum bar height | 6px | 2–12px |
+| Stronger atmospheric wash | off | Deepens the dark-mode cloud field (still clears its contrast target, with less margin) |
+| Hide the orbital plate | off | Removes the graph view's orbits, reticle and star glow |
+| Orbit and reticle strength | 0.12 | 0–0.6 |
+| Star glow strength | 0.05 | 0–0.4 |
 
 Every toggle defaults to the theme's shipped behaviour, so installing the
 plugin changes nothing until you touch a switch.

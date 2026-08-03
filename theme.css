@@ -1,6 +1,6 @@
 /* ==========================================================================
    Retro Relay — an Obsidian theme
-   Warm analog palette, terminal-adjacent monospace, full light + dark support.
+   Warm paper light scheme, graphite dark, terminal-adjacent monospace.
 
    Structure of this file
      1.  Style Settings schema (optional plugin integration)
@@ -119,6 +119,63 @@ settings:
         description: A restrained nod to CRT displays. Off by default.
         type: class-toggle
         default: false
+    -
+        id: rr-no-spectrum
+        title: Hide the spectrum bar
+        description: Removes the chromatic band along the top edge of the window.
+        type: class-toggle
+        default: false
+    -
+        id: rr-spectrum-bars
+        title: Hard-edged spectrum bar
+        description: Discrete broadcast colour bars instead of a smooth blend. Reads more like VHS, especially on a taller band.
+        type: class-toggle
+        default: false
+    -
+        id: rr-spectrum-height
+        title: Spectrum bar height
+        description: The band overlays the top edge, so past roughly 10px it starts to crowd the tab strip.
+        type: variable-number-slider
+        default: 6
+        min: 2
+        max: 12
+        step: 1
+        format: px
+    -
+        id: rr-clouds-strong
+        title: Stronger atmospheric wash
+        description: Deepens the cloud field in the dark scheme. Faint text such as code comments drops from 3.8:1 to about 3.2:1 — still above its 3.0 target, but with far less margin.
+        type: class-toggle
+        default: false
+    -
+        id: rr-graph-heading
+        title: Graph view
+        type: heading
+        level: 2
+        collapsed: true
+    -
+        id: rr-no-graph-plate
+        title: Hide the orbital plate
+        description: Removes the coloured orbits, reticle and star glow behind the graph.
+        type: class-toggle
+        default: false
+    -
+        id: rr-graph-orbit-opacity
+        title: Orbit and reticle strength
+        description: Faint by default. The graph is rarely centred in its pane, so strong rings read as a misaligned target rather than a system.
+        type: variable-number-slider
+        default: 0.12
+        min: 0
+        max: 0.6
+        step: 0.01
+    -
+        id: rr-graph-core-opacity
+        title: Star glow strength
+        type: variable-number-slider
+        default: 0.05
+        min: 0
+        max: 0.4
+        step: 0.01
 */
 
 
@@ -158,6 +215,60 @@ body {
   --border-width: 1px;
   --rr-border-width-strong: 2px;
 
+  /* Spectrum bar — the chromatic band along the top edge of the window.
+     Composed entirely of palette tokens, so it re-tints with the colour
+     scheme and with a custom accent rather than needing its own colours.
+
+     Two treatments. The smooth gradient is the default. The hard-edged
+     variant is the one that reads as VHS: broadcast colour bars were
+     discrete fields, never a blend, and the eye picks that up immediately at
+     any band height. Hard stops are written as duplicated positions rather
+     than Images-4 double-position syntax — same result, no compat surprises. */
+  --rr-spectrum-height: 6px;
+  --rr-spectrum: linear-gradient(
+    90deg,
+    var(--rr-purple) 0%,
+    var(--rr-magenta) 17%,
+    var(--rr-red) 33%,
+    var(--rr-accent) 50%,
+    var(--rr-yellow) 67%,
+    var(--rr-teal) 84%,
+    var(--rr-blue) 100%
+  );
+  --rr-spectrum-bars: linear-gradient(
+    90deg,
+    var(--rr-purple) 0%,
+    var(--rr-purple) 14.28%,
+    var(--rr-magenta) 14.28%,
+    var(--rr-magenta) 28.57%,
+    var(--rr-red) 28.57%,
+    var(--rr-red) 42.85%,
+    var(--rr-accent) 42.85%,
+    var(--rr-accent) 57.14%,
+    var(--rr-yellow) 57.14%,
+    var(--rr-yellow) 71.42%,
+    var(--rr-teal) 71.42%,
+    var(--rr-teal) 85.71%,
+    var(--rr-blue) 85.71%,
+    var(--rr-blue) 100%
+  );
+
+  /* Graph plate — see section 12. Kept low deliberately, and lower than it
+     first shipped: a force-directed layout puts its node mass off-centre, and
+     the user pans and zooms freely on top of that, so the plate is almost
+     never aligned with the graph. At a stronger setting the concentric rings
+     read as a misaligned target; this faint they read as texture and the graph
+     stays the subject. The star glow is the element that most implies a centre
+     the graph does not actually have, so it is the fainter of the two. */
+  --rr-graph-orbit-opacity: 0.12;
+  --rr-graph-core-opacity: 0.05;
+
+  /* Atmospheric wash on the workspace ground. `none` by default; the dark
+     scheme fills it in. Declared here so every rule that layers it can use
+     `background-image: var(--rr-clouds)` unconditionally — a scheme-only
+     token would make the whole declaration invalid in the other scheme. */
+  --rr-clouds: none;
+
   /* Motion */
   --rr-transition: 120ms ease-out;
 
@@ -168,17 +279,19 @@ body {
 
 /* ==========================================================================
    3. Palette — dark
-   Warm brown-black ground, cream text, amber accent.
+   Graphite ground, warm paper text, amber accent.
    ========================================================================== */
 
 .theme-dark {
-  /* Ground */
-  --rr-bg-0: #17130F;
-  --rr-bg-1: #1E1A16;
-  --rr-bg-2: #262019;
-  --rr-bg-3: #322A22;
-  --rr-border: #453A2E;
-  --rr-border-strong: #5C4D3D;
+  /* Ground — graphite, with a slight cool cast. Warm paper ink sits on top of
+     it rather than a cool grey: the contrast of warm ink against cool ground
+     is what keeps this recognisably the same theme as the light scheme. */
+  --rr-bg-0: #121417;
+  --rr-bg-1: #191C20;
+  --rr-bg-2: #21252A;
+  --rr-bg-3: #2C3137;
+  --rr-border: #3A4046;
+  --rr-border-strong: #4E555D;
 
   /* Ink */
   --rr-ink: #F2E9D8;
@@ -195,6 +308,26 @@ body {
   --rr-red: #E88A82;
   --rr-magenta: #E491AE;
   --rr-purple: #BBA0D8;
+
+  /* Cloud field: lighter wisps and darker pools over the --rr-bg-1 ground,
+     drawn from the ground tokens themselves so the wash re-derives if the
+     palette is re-skinned.
+
+     Amplitude is capped at --rr-bg-2 rather than --rr-bg-3 on purpose. The
+     contrast gate only tests flat token pairs, so the wash has to be checked
+     by hand: at bg-3 the tightest pair (faint code-comment text over the
+     lightest point of a blob) came out at 3.22:1 against a 3.0 target. At
+     bg-2 it is 3.79:1. The visual difference between the two is barely
+     perceptible; the margin difference is not.
+
+     Built from gradients rather than an SVG turbulence filter. Turbulence
+     gives truer cloud noise, but it repaints across the full workspace and
+     that is a cost paid on every frame in an editor. */
+  --rr-clouds:
+    radial-gradient(62% 46% at 16% 10%, var(--rr-bg-2) 0%, transparent 70%),
+    radial-gradient(48% 38% at 84% 6%, var(--rr-bg-2) 0%, transparent 66%),
+    radial-gradient(72% 55% at 72% 80%, var(--rr-bg-2) 0%, transparent 72%),
+    radial-gradient(46% 36% at 26% 90%, var(--rr-bg-0) 0%, transparent 68%);
 
   color-scheme: dark;
 
@@ -216,7 +349,7 @@ body {
   --text-normal: var(--rr-ink);
   --text-muted: var(--rr-ink-muted);
   --text-faint: var(--rr-ink-faint);
-  --text-on-accent: #17130F;
+  --text-on-accent: #121417;
   --text-error: var(--rr-red);
   --text-success: var(--rr-green);
   --text-warning: var(--rr-yellow);
@@ -414,7 +547,8 @@ body {
 /* Unresolved links carry a dotted underline as well as a colour, so a
    broken link is still visible without colour perception. */
 .internal-link.is-unresolved {
-  text-decoration: underline dotted;
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
   text-underline-offset: 2px;
 }
 
@@ -490,6 +624,42 @@ body {
   --embed-padding: 0 0 0 1em;
 }
 
+/* Spectrum bar. Sits on the window's top edge, above the titlebar and tab
+   strip, spanning the full width. Purely decorative — it carries no state,
+   and `pointer-events: none` leaves the frameless-window drag and resize
+   region behind it fully usable. Static, so reduced-motion does not apply. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: var(--rr-spectrum-height);
+  background: var(--rr-spectrum);
+  /* Chrome tier — above the titlebar and tab strip, below popovers, modals
+     and menus. The literal fallback matches Obsidian's own value, so the bar
+     is not left at `auto` if that variable is ever renamed. */
+  z-index: var(--layer-status-bar, 15);
+  pointer-events: none;
+}
+
+body.rr-no-spectrum::before {
+  content: none;
+}
+
+body.rr-spectrum-bars::before {
+  background: var(--rr-spectrum-bars);
+}
+
+/* The top chrome reads as terminal furniture under the bar: the theme's own
+   monospace, tracked out a little. Deliberately not uppercased — tab labels
+   are note titles, and caps cost scanability on long ones. */
+.workspace-tab-header-inner-title,
+.titlebar-inner .titlebar-text,
+.view-header-title {
+  font-family: var(--rr-font-mono);
+  font-size: 0.84em;
+  letter-spacing: 0.04em;
+}
+
 /* The active tab gets an accent rule on top — position is legible without
    depending on the subtle background difference alone. */
 .workspace-tab-header.is-active::before {
@@ -513,6 +683,20 @@ body {
 .workspace-drawer-vault-name,
 .nav-folder-title {
   font-family: var(--rr-font-ui);
+}
+
+/* Atmospheric wash on the pane grounds. Applied here rather than to `body`,
+   because Obsidian paints every leaf with an opaque ground and a body-level
+   image would never surface. Left unscoped: `--rr-clouds` is `none` outside
+   the dark scheme, so the token decides where this applies.
+
+   Not `background-attachment: fixed` — a fixed background forces a repaint on
+   every scroll, and the pane does not scroll anyway; the editor inside it
+   does. So the wash already holds still while text moves over it. */
+.workspace-leaf-content {
+  background-image: var(--rr-clouds);
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 
@@ -562,9 +746,13 @@ body {
   border-radius: var(--radius-m);
 }
 
+/* `position: relative` is the containing block for the language badge and the
+   copy button below. Set unconditionally rather than via `pre:has(> code…)`,
+   which costs a broad selector invalidation for no behavioural difference. */
 .markdown-rendered pre {
   padding: 0.9em 1em;
   overflow-x: auto;
+  position: relative;
 }
 
 .markdown-rendered pre > code {
@@ -575,10 +763,6 @@ body {
 }
 
 /* Language badge on hover, drawn from the info string. */
-.markdown-rendered pre:has(> code[class*='language-']) {
-  position: relative;
-}
-
 .markdown-rendered pre > code[class*='language-']::before {
   content: attr(data-lang);
   position: absolute;
@@ -760,8 +944,12 @@ body.rr-plain-tables .markdown-rendered tbody tr:nth-child(even) {
   background: var(--table-row-background-hover);
 }
 
-/* Numeric columns read better right-aligned and tabular. */
-.markdown-rendered td:has(> :only-child):is(td) {
+/* Figures line up column-to-column with tabular figures. Applied to every
+   cell: CSS cannot tell a numeric column from a textual one, and tabular
+   figures are harmless in prose. Column alignment stays with the author —
+   Markdown's `|---:|` syntax already emits `text-align`. */
+.markdown-rendered th,
+.markdown-rendered td {
   font-variant-numeric: tabular-nums;
 }
 
@@ -843,10 +1031,110 @@ body {
 }
 
 /* Graph canvas sits on the paper/ground colour rather than pure black. */
+/* Split into longhands so the cloud wash can layer over the ground colour.
+   The `background` shorthand would reset the image on every scheme. */
 .graph-view.color-fill,
 .workspace-leaf-content[data-type='graph'] .view-content,
 .workspace-leaf-content[data-type='localgraph'] .view-content {
-  background: var(--background-primary);
+  background-color: var(--background-primary);
+  background-image: var(--rr-clouds);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+
+/* --- Orbital plate -------------------------------------------------------
+   Chart furniture for the graph: a star glow at the centre, coloured orbits
+   stepping outward, and a reticle across the middle — the instrument plate an
+   astronomical chart is drawn on.
+
+   It is fixed to the viewport, not to the nodes, and that is a limitation
+   worth naming rather than hiding. Graph layout is force-directed physics
+   inside a WebGL canvas; CSS cannot read or place node positions, so it
+   cannot put notes onto orbits. What it can do is give them a chart to drift
+   across. Both layers sit above the canvas with `pointer-events: none`, so
+   pan, zoom and node dragging are untouched, and so the plate shows whether
+   or not the canvas paints an opaque background of its own.
+
+   Orbit radii step unevenly — tight inside, wider out — because evenly spaced
+   rings read as a target, not a system. */
+
+.workspace-leaf-content[data-type='graph'] .view-content,
+.workspace-leaf-content[data-type='localgraph'] .view-content {
+  position: relative;
+}
+
+/* The star. A warm core rather than a hard disc — it reads as the thing the
+   orbits belong to without competing with a focused node. */
+.workspace-leaf-content[data-type='graph'] .view-content::before,
+.workspace-leaf-content[data-type='localgraph'] .view-content::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: var(--rr-graph-core-opacity);
+  background: radial-gradient(
+    circle closest-side at 50% 50%,
+    var(--rr-accent-strong) 0%,
+    var(--rr-accent) 18%,
+    transparent 80%
+  );
+}
+
+/* Orbits and reticle. One hue per orbit, drawn from the same spectrum as the
+   top bar, so the graph and the window chrome speak the same language. */
+.workspace-leaf-content[data-type='graph'] .view-content::after,
+.workspace-leaf-content[data-type='localgraph'] .view-content::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: var(--rr-graph-orbit-opacity);
+  background-image:
+    /* reticle — horizontal, then vertical hairline */
+    linear-gradient(var(--rr-border-strong), var(--rr-border-strong)),
+    linear-gradient(var(--rr-border-strong), var(--rr-border-strong)),
+    /* Orbits, innermost first. `closest-side` ties the radii to the pane's
+       shorter edge; the default `farthest-corner` scales them to the diagonal,
+       which pushes the outer orbits off a wide pane so they read as stray arcs
+       instead of a system. */
+    radial-gradient(
+      circle closest-side at 50% 50%,
+      transparent 12%,
+      var(--rr-teal) 12%,
+      var(--rr-teal) calc(12% + 1px),
+      transparent calc(12% + 1px),
+      transparent 20%,
+      var(--rr-purple) 20%,
+      var(--rr-purple) calc(20% + 1px),
+      transparent calc(20% + 1px),
+      transparent 30%,
+      var(--rr-accent) 30%,
+      var(--rr-accent) calc(30% + 1px),
+      transparent calc(30% + 1px),
+      transparent 43%,
+      var(--rr-yellow) 43%,
+      var(--rr-yellow) calc(43% + 1px),
+      transparent calc(43% + 1px),
+      transparent 58%,
+      var(--rr-magenta) 58%,
+      var(--rr-magenta) calc(58% + 1px),
+      transparent calc(58% + 1px),
+      transparent 76%,
+      var(--rr-blue) 76%,
+      var(--rr-blue) calc(76% + 1px),
+      transparent calc(76% + 1px)
+    );
+  background-repeat: no-repeat;
+  background-size: 100% 1px, 1px 100%, 100% 100%;
+  background-position: center, center, center;
+}
+
+body.rr-no-graph-plate .workspace-leaf-content[data-type='graph'] .view-content::before,
+body.rr-no-graph-plate .workspace-leaf-content[data-type='graph'] .view-content::after,
+body.rr-no-graph-plate .workspace-leaf-content[data-type='localgraph'] .view-content::before,
+body.rr-no-graph-plate .workspace-leaf-content[data-type='localgraph'] .view-content::after {
+  content: none;
 }
 
 /* Controls panel — same chrome language as the rest of the theme. */
@@ -988,10 +1276,10 @@ body.rr-high-contrast.theme-dark {
   --rr-ink: #FFFAF0;
   --rr-ink-muted: #D6C9B2;
   --rr-ink-faint: #A2937C;
-  --rr-border: #6B5A47;
-  --rr-border-strong: #8A7660;
-  --rr-bg-1: #141110;
-  --rr-bg-0: #0D0B0A;
+  --rr-border: #5E666E;
+  --rr-border-strong: #7A838C;
+  --rr-bg-1: #101317;
+  --rr-bg-0: #0A0C0E;
 }
 
 body.rr-high-contrast.theme-light {
@@ -1018,32 +1306,72 @@ body.rr-readable-font {
 }
 
 /* Honour the system preference, and offer a manual switch for people whose
-   OS setting does not match their need. */
+   OS setting does not match their need.
+
+   Two layers. The variables cover the theme's own motion and Obsidian core's,
+   with no override needed. The universal rule exists only to catch animations
+   declared by community plugins, whose selectors and specificity are unknown
+   ahead of time — nothing but `!important` reliably beats them. The theme
+   linter flags that, and it stays: a vestibular trigger is a worse outcome
+   than a lint warning. Duration alone is enough, so `animation-iteration-count`
+   and a `*`-wide `scroll-behavior` are gone — the latter only ever applied to
+   scroll containers anyway, and is set on the root below instead. */
 @media (prefers-reduced-motion: reduce) {
+  body {
+    --rr-transition: 0s;
+    --anim-duration-superfast: 0s;
+    --anim-duration-fast: 0s;
+    --anim-duration-moderate: 0s;
+    --anim-duration-slow: 0s;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+
   *,
   *::before,
   *::after {
     animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
-    scroll-behavior: auto !important;
   }
+}
+
+body.rr-no-motion {
+  --rr-transition: 0s;
+  --anim-duration-superfast: 0s;
+  --anim-duration-fast: 0s;
+  --anim-duration-moderate: 0s;
+  --anim-duration-slow: 0s;
+  scroll-behavior: auto;
 }
 
 body.rr-no-motion *,
 body.rr-no-motion *::before,
 body.rr-no-motion *::after {
   animation-duration: 0.001ms !important;
-  animation-iteration-count: 1 !important;
   transition-duration: 0.001ms !important;
-  scroll-behavior: auto !important;
+}
+
+/* Option: a deeper atmospheric wash, for anyone who wants the atmosphere more
+   than the margin. Same four blobs as the default in section 3, with the
+   brightest lifted to --rr-bg-3 and held a little further before they fade.
+   That takes faint code-comment text from 3.79:1 to about 3.22:1 — still past
+   its 3.0 target, but the headroom is most of what is spent. Kept out of the
+   palette block so section 3 stays the single place colours are declared. */
+body.rr-clouds-strong.theme-dark {
+  --rr-clouds:
+    radial-gradient(66% 50% at 16% 10%, var(--rr-bg-3) 0%, transparent 74%),
+    radial-gradient(52% 42% at 84% 6%, var(--rr-bg-3) 0%, transparent 70%),
+    radial-gradient(76% 58% at 72% 80%, var(--rr-bg-2) 0%, transparent 76%),
+    radial-gradient(50% 40% at 26% 90%, var(--rr-bg-0) 0%, transparent 72%);
 }
 
 /* Respect a system request for more contrast without any manual toggle. */
 @media (prefers-contrast: more) {
   .theme-dark {
     --rr-ink: #FFFAF0;
-    --rr-border: #6B5A47;
+    --rr-border: #5E666E;
   }
   .theme-light {
     --rr-ink: #1A1410;
@@ -1065,10 +1393,13 @@ body.rr-no-motion *::after {
     --text-muted: #333333;
   }
 
+  /* `page-break-inside` rather than `break-inside`: the legacy alias is what
+     Chromium implements completely for paged media, and it avoids the
+     multicolumn-fragmentation compat warning the modern property raises. */
   .markdown-rendered pre,
   .markdown-rendered table,
   .callout {
-    break-inside: avoid;
+    page-break-inside: avoid;
   }
 
   .markdown-rendered a[href^='http']::after {
