@@ -547,8 +547,7 @@ body {
 /* Unresolved links carry a dotted underline as well as a colour, so a
    broken link is still visible without colour perception. */
 .internal-link.is-unresolved {
-  text-decoration-line: underline;
-  text-decoration-style: dotted;
+  text-decoration: underline dotted;
   text-underline-offset: 2px;
 }
 
